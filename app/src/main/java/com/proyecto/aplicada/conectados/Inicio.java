@@ -3,21 +3,27 @@ package com.proyecto.aplicada.conectados;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class Inicio extends AppCompatActivity implements View.OnClickListener{
 
     TextView recuperarPw;
+    Button btnRegistrarse;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
         recuperarPw = (TextView)findViewById(R.id.idviewContraseñaOlv);
         recuperarPw.setOnClickListener(this);
+        btnRegistrarse=(Button)findViewById(R.id.idBtnRegistrarse);
+        btnRegistrarse.setOnClickListener(this);
     }
 
     @Override
@@ -36,6 +42,11 @@ public class Inicio extends AppCompatActivity implements View.OnClickListener{
                                 });
                 AlertDialog alert = builder.create();
                 alert.show();
+                break;
+
+            case R.id.idBtnRegistrarse:
+                Intent intent = new Intent(Inicio.this,Registro.class);
+                startActivity(intent);
                 break;
         }
 
