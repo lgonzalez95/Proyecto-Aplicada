@@ -42,7 +42,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 String password = txtPassword.getText().toString();
                 conexion= new SqlConexion(this);
                 if(conexion.consultarUsuario(password, correo)!=null){
-                    startActivity(new Intent(this, MainActivity.class));
+                    Intent intent = new Intent(this, MainActivity.class);
+                    intent.putExtra("usuario", correo);
+                    startActivity(intent);
                 }
                 else{
 
