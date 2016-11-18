@@ -46,13 +46,17 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
                 String correo = txtCorreo.getText().toString();
 
                 ContentValues valores = new ContentValues();
-                valores.put("usuario", usuario );
-                valores.put("password", password);
                 valores.put("nombreCompleto", nombreCompleto);
+                valores.put("password", password);
+                valores.put("usuario", usuario );
+                valores.put("estado",0);
                 valores.put("carnet", carnet);
                 valores.put("correo", correo);
-                valores.put("estado",0);
-                conexion.mInsertarUsuario(valores, "Producto");
+                if(conexion.mInsertarUsuario(valores, "usuario")==true){
+                    System.out.println("Agregado exitosamente");
+                }else{
+                    System.out.println("No se agregó");
+                }
                 break;
             case R.id.idBtnCancelar:
                 break;

@@ -12,7 +12,7 @@ import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 public class SqlConexion extends SQLiteAssetHelper {
 
-    private static String baseDatos="prototipo.db";
+    private static String baseDatos="BaseDatosAgenda.db";
     private SQLiteDatabase bd;
 
     public SqlConexion(Context context) {
@@ -50,7 +50,7 @@ public class SqlConexion extends SQLiteAssetHelper {
     }
 
     public Usuario consultarUsuario(String clave, String usuario) {
-        String query = "Select * from Usuario where correoElectronico = ? and password = ?";
+        String query = "Select * from usuario where correoElectronico = ? and password = ?";
         String[] args = {usuario, clave};
         Cursor cursor = this.mConsultarUser(query, args);
 
