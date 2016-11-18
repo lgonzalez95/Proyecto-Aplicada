@@ -15,6 +15,7 @@ public class Inicio extends AppCompatActivity implements View.OnClickListener{
 
     TextView recuperarPw;
     Button btnRegistrarse;
+    Button btnIniciarSesion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,9 @@ public class Inicio extends AppCompatActivity implements View.OnClickListener{
         recuperarPw.setOnClickListener(this);
         btnRegistrarse=(Button)findViewById(R.id.idBtnRegistrarse);
         btnRegistrarse.setOnClickListener(this);
+
+        btnIniciarSesion=(Button)findViewById(R.id.idBtnIniciarSesion);
+        btnIniciarSesion.setOnClickListener(this);
     }
 
     @Override
@@ -47,6 +51,11 @@ public class Inicio extends AppCompatActivity implements View.OnClickListener{
             case R.id.idBtnRegistrarse:
                 Intent intent = new Intent(Inicio.this,Registro.class);
                 startActivity(intent);
+                break;
+
+            case R.id.idBtnIniciarSesion:
+                Intent intent2 = new Intent(Inicio.this,Login.class);
+                startActivity(intent2);
                 break;
         }
 

@@ -50,7 +50,7 @@ public class SqlConexion extends SQLiteAssetHelper {
     }
 
     public Usuario consultarUsuario(String clave, String usuario) {
-        String query = "Select * from usuario where correoElectronico = ? and password = ?";
+        String query = "Select * from usuario where usuario = ? and password = ?";
         String[] args = {usuario, clave};
         Cursor cursor = this.mConsultarUser(query, args);
 
