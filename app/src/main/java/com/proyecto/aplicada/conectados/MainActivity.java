@@ -1,8 +1,10 @@
 package com.proyecto.aplicada.conectados;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,15 +15,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
+    private RecyclerView recyclerNotas;
+    private FloatingActionButton actionButton;
+    View vistaPrincipal;
+    private SqlConexion conexion;
+    public  String usuarioLogueado =  "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Usuario: " +getIntent().getExtras().getString("usuario"));
+        usuarioLogueado=getIntent().getExtras().getString("usuario");
+        toolbar.setTitle("Usuario: " +usuarioLogueado);
         setSupportActionBar(toolbar);
 
 
@@ -33,6 +42,22 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        actionButton = (FloatingActionButton)findViewById(R.id.action_btn_agregar);
+        actionButton.setOnClickListener(this);
+
+
+        recyclerNotas = (RecyclerView)findViewById(R.id.recView_mensajes);
+        recyclerNotas.setHasFixedSize(true);
+
+        LinearLayoutManager linearLayout = new LinearLayoutManager(this);
+        recyclerNotas.setLayoutManager(linearLayout);
+
+        RecyclerAdapMsjs adaptadorNotas = new RecyclerAdapMsjs(this, new ControlItemMsjs());
+        recyclerNotas.setAdapter(adaptadorNotas);
+        conexion= new SqlConexion(this);
+        adaptadorNotas.actualizarCursor(conexion.getMensajes("mensajes",usuarioLogueado));
+
     }
 
     @Override
@@ -90,5 +115,16 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.action_btn_agregar:
+                Intent intent = new Intent(MainActivity.this, ActivityEnviarMsj.class);
+                intent.putExtra("usuario", usuarioLogueado);
+                startActivity(intent);
+                break;
+        }
     }
 }

@@ -64,6 +64,14 @@ public class SqlConexion extends SQLiteAssetHelper {
             return null;
         }
     }
+    public Cursor getMensajes(String tabla, String usuario)
+    {
+        String query;
+        query=  "Select * from mensajes where usuarioPara = ?";
+        String[] args = {usuario};
+        Cursor cursor = this.mConsultarUser(query, args);
+        return cursor;
+    }
 
     public Cursor mConsultarUser(String query, String arg[])
     {
